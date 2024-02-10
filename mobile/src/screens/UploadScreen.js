@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-<<<<<<< HEAD
 import {
   View,
   Text,
@@ -7,10 +6,7 @@ import {
   TouchableOpacity,
   Image,
   Dimensions,
-} from "react-native";
-=======
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
->>>>>>> ae65ae6446156d9f1f5840e26457f69826ce8b87
+} from "react-native";ae65ae6446156d9f1f5840e26457f69826ce8b87
 import { Camera } from "expo-camera";
 
 const UploadScreen = () => {
@@ -20,16 +16,10 @@ const UploadScreen = () => {
 
   const takePicture = async () => {
     const options = {
-<<<<<<< HEAD
       quality: 0.5,
       base64: true,
       exif: true,
-      zoom: 0,
-=======
-      quality: 0.7,
-      base64: true,
-      exif: false,
->>>>>>> ae65ae6446156d9f1f5840e26457f69826ce8b87
+      zoom: 0,ae65ae6446156d9f1f5840e26457f69826ce8b87
     };
 
     const newPhoto = await cameraRef.current.takePictureAsync(options);
@@ -39,17 +29,12 @@ const UploadScreen = () => {
   useEffect(() => {
     (async () => {
       const cameraPermissions = await Camera.requestCameraPermissionsAsync();
-<<<<<<< HEAD
       console.log(cameraPermissions);
       setHasCameraPermission(cameraPermissions.granted);
-=======
-      setHasCameraPermission(cameraPermissions === "granted");
->>>>>>> ae65ae6446156d9f1f5840e26457f69826ce8b87
     })();
   }, []);
 
   if (photo) {
-<<<<<<< HEAD
     console.log(photo.exif);
     return (
       <View style={styles.mainContainer}>
@@ -57,13 +42,6 @@ const UploadScreen = () => {
           style={styles.image}
           // source={{ uri: photo.uri }}
           source={{ uri: "data:image/jpg;base64," + photo.base64 }}
-=======
-    return (
-      <View style={styles.mainContainer}>
-        <Image
-          style={styles.preview}
-          source={{ uri: "data:image/jpg;base64" + photo.base64 }}
->>>>>>> ae65ae6446156d9f1f5840e26457f69826ce8b87
         />
       </View>
     );
