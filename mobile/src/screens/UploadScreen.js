@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { cameraWithTensors } from "@tensorflow/tfjs-react-native";
 import {
   View,
   Text,
@@ -6,9 +7,9 @@ import {
   TouchableOpacity,
   Image,
   Dimensions,
+  Platform
 } from "react-native";
 import { Camera } from "expo-camera";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 const UploadScreen = () => {
   const cameraRef = useRef();
@@ -47,6 +48,8 @@ const UploadScreen = () => {
     // } catch (error) {
     //   console.error("Error uploading data to MongoDB:", error);
     // }
+
+
   };
 
   const retake = () => {
@@ -103,6 +106,8 @@ const UploadScreen = () => {
       </View>
     );
   }
+
+  const textureDims = Platform.OS === "ios" ? { height: 1920, width: 1080 } : { height: 1200, width: 1600 };
 
   return (
     <View style={styles.mainContainer}>
