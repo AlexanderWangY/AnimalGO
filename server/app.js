@@ -35,6 +35,7 @@ run().catch(console.dir);
 app.get('/', (req, res) => {
   res.send('hello world')
 })
+
 app.post('/upload-data', async (req, res) => {
     try {
       // Connect to MongoDB
@@ -78,15 +79,23 @@ app.get('/get-data', async (req, res) => {
     var query = {};
     query["class"] = req.query.class;
     console.log(query);
+
     // Execute query 
     const cursor = collection.find(query);
-    // Print a message if no documents were found
+ 
+    var result = []
     // Print returned documents
     for await (const doc of cursor) {
       console.log(doc);
+      result.push(doc);
     }
-    res.send("Nothing");
+
+    res.send(result);
 })
+
+
+
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
