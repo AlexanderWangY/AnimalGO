@@ -44,13 +44,16 @@ app.post('/upload-data', async (req, res) => {
       const db = client.db(dbName);
   
 
-      collectionName = "Canine"
+      collectionName = "Test"
       // Get the collection
       const collection = db.collection(collectionName);
   
       // Data to be uploaded
       const newData = {
-        image: req.body.image
+        image: req.body.image,
+        class: req.body.class,
+        longitude: req.body.longitude,
+        latitude: req.body.latitude
         // Add more fields as needed
       };
   
@@ -65,6 +68,25 @@ app.post('/upload-data', async (req, res) => {
     }
   });
 
+app.get('/get-data', async (req, res) => {
+    console.log("has class:  " + req.query.hasOwnProperty('class'));
+    console.log("has location:  " + (req.query.hasOwnProperty('longitude') && req.query.hasOwnProperty('latitude')));
+    await client.connect();
+    const db = client.db("Animals");
+    const collection = db.collection("Test");
+
+    var query = {};
+    query["class"] = req.query.class;
+    console.log(query);
+    // Execute query 
+    const cursor = collection.find(query);
+    // Print a message if no documents were found
+    // Print returned documents
+    for await (const doc of cursor) {
+      console.log(doc);
+    }
+    res.send("Nothing");
+})
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
