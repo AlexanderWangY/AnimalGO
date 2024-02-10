@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors');
 const app = express()
 // MongoDB
 const { MongoClient, ServerApiVersion } = require('mongodb');
@@ -6,6 +7,8 @@ const uri = "mongodb+srv://test_user:BXaXHTykamqjssNb@animals.ahx4hzx.mongodb.ne
 
 // To parse json request body
 app.use(express.json({ limit: '1mb' }));
+
+app.use(cors());
 
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
@@ -54,7 +57,8 @@ app.post('/upload-data', async (req, res) => {
         image: req.body.image,
         class: req.body.class,
         longitude: req.body.longitude,
-        latitude: req.body.latitude
+        latitude: req.body.latitude,
+        time: req.body.time
         // Add more fields as needed
       };
   
@@ -92,8 +96,6 @@ app.get('/get-data', async (req, res) => {
 
     res.send(result);
 })
-
-
 
 
 const PORT = process.env.PORT || 3000;
