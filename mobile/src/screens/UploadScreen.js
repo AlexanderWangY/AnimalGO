@@ -1,5 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  Dimensions,
+} from "react-native";
 import { Camera } from "expo-camera";
 
 const UploadScreen = () => {
@@ -9,9 +16,10 @@ const UploadScreen = () => {
 
   const takePicture = async () => {
     const options = {
-      quality: 0.7,
+      quality: 0.5,
       base64: true,
-      exif: false,
+      exif: true,
+      zoom: 0,
     };
 
     const newPhoto = await cameraRef.current.takePictureAsync(options);
@@ -21,16 +29,19 @@ const UploadScreen = () => {
   useEffect(() => {
     (async () => {
       const cameraPermissions = await Camera.requestCameraPermissionsAsync();
-      setHasCameraPermission(cameraPermissions === "granted");
+      console.log(cameraPermissions);
+      setHasCameraPermission(cameraPermissions.granted);
     })();
   }, []);
 
   if (photo) {
+    console.log(photo.exif);
     return (
       <View style={styles.mainContainer}>
         <Image
-          style={styles.preview}
-          source={{ uri: "data:image/jpg;base64" + photo.base64 }}
+          style={styles.image}
+          // source={{ uri: photo.uri }}
+          source={{ uri: "data:image/jpg;base64," + photo.base64 }}
         />
       </View>
     );
@@ -53,17 +64,46 @@ const UploadScreen = () => {
   }
 
   return (
-    <Camera>
-      <TouchableOpacity style={styles.photoButton} onPress={takePicture}>
-        <Text>Take</Text>
-      </TouchableOpacity>
-    </Camera>
+    <View style={styles.mainContainer}>
+      <Camera style={styles.camera} ref={cameraRef} zoom={0}>
+        <View style={styles.target}></View>
+      </Camera>
+      <View style={styles.taskbar}>
+        <TouchableOpacity
+          style={styles.photoButton}
+          onPress={takePicture}
+        ></TouchableOpacity>
+      </View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
+    justifyContent: "flex-start",
+    alignItems: "center",
+  },
+
+  camera: {
+    flex: 10,
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  target: {
+    width: Dimensions.get("window").width * 0.3,
+    height: Dimensions.get("window").width * 0.3,
+    borderColor: "white",
+    borderWidth: 2.5,
+  },
+
+  taskbar: {
+    width: "100%",
+    flex: 4,
+    display: "flex",
+    flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -72,6 +112,8 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     backgroundColor: "white",
+    borderColor: "black",
+    borderWidth: 10,
     borderRadius: 50,
     justifyContent: "center",
     alignItems: "center",
@@ -79,7 +121,11 @@ const styles = StyleSheet.create({
 
   preview: {
     flex: 1,
-    jalignSelf: "stretch",
+  },
+
+  image: {
+    width: "100%",
+    height: "100%",
   },
 });
 
