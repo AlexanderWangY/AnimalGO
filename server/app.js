@@ -48,7 +48,7 @@ app.post('/upload-data', async (req, res) => {
       const db = client.db(dbName);
   
 
-      collectionName = "Test"
+      collectionName = "Demo"
       // Get the collection
       const collection = db.collection(collectionName);
   
@@ -56,8 +56,7 @@ app.post('/upload-data', async (req, res) => {
       const newData = {
         image: req.body.image,
         class: req.body.class,
-        longitude: req.body.longitude,
-        latitude: req.body.latitude,
+        longitude: req.body.location,
         time: req.body.time
         // Add more fields as needed
       };
@@ -74,11 +73,12 @@ app.post('/upload-data', async (req, res) => {
   });
 
 app.get('/get-data', async (req, res) => {
-    console.log("has class:  " + req.query.hasOwnProperty('class'));
-    console.log("has location:  " + (req.query.hasOwnProperty('longitude') && req.query.hasOwnProperty('latitude')));
+    // console.log("has class:  " + req.query.hasOwnProperty('class'));
+    // console.log("has location:  " + (req.query.hasOwnProperty('time')));
+
     await client.connect();
     const db = client.db("Animals");
-    const collection = db.collection("Test");
+    const collection = db.collection("Demo");
 
     var query = {};
     query["class"] = req.query.class;
