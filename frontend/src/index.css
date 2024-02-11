@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
+
+html, body, #root {
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(to bottom, #ff7e5f, #feb47b);
+    font-family: "Josefin Sans", sans-serif;
+}
+
+#root {
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
