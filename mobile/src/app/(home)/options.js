@@ -1,10 +1,8 @@
-import React from 'react'
-import OptionScreen from '../../screens/OptionScreen'
+import React from "react";
+import OptionScreen from "../../screens/OptionScreen";
 
-const Options = (base64Image) => {
-  return (
-    <OptionScreen base64Image={base64Image} />
-  )
-}
+const Options = () => {
+  return <OptionScreen />;
+};
 
-export default Options
+export default Options;
