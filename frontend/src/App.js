@@ -1,9 +1,7 @@
-import logo from './logo.svg';
+
 import './App.css';
-import ListGroup from "./components/ListGroup";
-import AnimalCard from "./components/AnimalCard";
 import AnimalGroup from "./components/AnimalGroup";
-import { useState, useEffect} from "react";
+import { useState } from "react";
 function App() {
 
   const [animal_items, setAnimalList] = useState([]);
@@ -37,17 +35,25 @@ function App() {
     setInputText(event.target.value);
   };
 
-  return (<>
+  return (<><div class="wrapper">
+  <h1>
+  ANIMAL GO DATABASE PORTAL
+</h1>
+  </div>
 
+
+  <div class="wrapper">
         <input
         type="text"
         value={inputText}
         onChange={handleInputText}
         placeholder="Enter text here"
+        className="input"
       />
-    <button onClick={()=>{handleClick();}}>Query</button>
-    <div>{animal_items.length !== 0 && <AnimalGroup items={animal_items} ></AnimalGroup>}
+    <button onClick={()=>{handleClick();}}></button>
     </div>
+        <div>{animal_items.length !== 0 && <AnimalGroup items={animal_items} ></AnimalGroup>}
+      </div>
     </>
   );
 }
