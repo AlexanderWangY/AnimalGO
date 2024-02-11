@@ -56,7 +56,7 @@ app.post('/upload-data', async (req, res) => {
       const newData = {
         image: req.body.image,
         class: req.body.class,
-        longitude: req.body.location,
+        location: req.body.location,
         time: req.body.time
         // Add more fields as needed
       };
