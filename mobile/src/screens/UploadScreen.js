@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Image,
   Dimensions,
-  Platform
+  Platform,
 } from "react-native";
 import { Camera } from "expo-camera";
 import { useRouter } from "expo-router";
@@ -31,7 +31,6 @@ const UploadScreen = () => {
     setPhoto(newPhoto);
   };
 
-
   const retake = () => {
     setPhoto(null);
   };
@@ -53,7 +52,13 @@ const UploadScreen = () => {
         />
         <TouchableOpacity
           style={styles.uploadButton}
-          onPress={() => {router.push({pathname: "/options", params: { meta: photo.exif } })}}>
+          onPress={async () => {
+            router.push({
+              pathname: "/options",
+              params: { meta: photo.exif, image: photo.base64 },
+            });
+          }}
+        >
           <Text>Upload</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.retakeButton} onPress={retake}>
@@ -93,8 +98,6 @@ const UploadScreen = () => {
     </View>
   );
 };
-;
-
 const styles = StyleSheet.create({
   mainContainer: {
     position: "relative",
