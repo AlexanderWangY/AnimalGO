@@ -1,3 +1,10 @@
 .container {
     display: flex; /* Use flexbox */
-  }
+}
+
+.animal-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Center the cards horizontally */
+    align-items: center; /* Center the cards vertically */
+}
